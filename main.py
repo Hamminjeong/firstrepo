@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("MBTI 유형별 특성 및 상담 꿀팁!")
+st.title("MBTI 유형별 특성 및 상담 꿀팁")
 
 mbti_types = [
     "ISTJ", "ISFJ", "INFJ", "INTJ",
@@ -10,16 +10,14 @@ mbti_types = [
 ]
 
 st.subheader("MBTI 유형을 선택하세요:")
-
 cols = st.columns(4)
 selected_type = None
 
-# 버튼 배열
 for i, mbti in enumerate(mbti_types):
     if cols[i % 4].button(mbti):
         selected_type = mbti
 
-# MBTI별 정보 정의mbti_info = {
+mbti_info = {
     "ISTJ": {
         "특성": "책임감 있고 실용적이며, 계획을 잘 세움.\n전통과 규칙을 중요시함.\n감정보다 사실에 근거한 판단을 선호함.\n신뢰성과 성실함으로 주변의 신뢰를 얻음.\n혼자서 조용히 일하는 것을 선호함.",
         "상담 꿀팁": "논리적이고 구체적인 근거를 들어 설명하면 효과적입니다.",
@@ -103,8 +101,6 @@ for i, mbti in enumerate(mbti_types):
 }
 
 
-
-# 선택된 유형에 따른 출력
 if selected_type:
     st.markdown(f"## ✨ {selected_type} 유형")
     info = mbti_info.get(selected_type)
