@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("MBTI 유형별 특성 및 상담 꿀팁")
+st.title("MBTI 유형별 특성 및 상담 꿀팁!")
 
 mbti_types = [
     "ISTJ", "ISFJ", "INFJ", "INTJ",
