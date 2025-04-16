@@ -1,22 +1,11 @@
 import streamlit as st
 
-st.title("MBTI 유형별 특성 및 상담 꿀팁")
+# 제목
+st.set_page_config(page_title="MBTI 상담 도우미", layout="wide")
+st.title("🧠 MBTI 유형별 특성과 상담 팁")
+st.markdown("MBTI 유형을 눌러 학생의 특성과 상담 꿀팁, 추천 직업을 확인해보세요!")
 
-mbti_types = [
-    "ISTJ", "ISFJ", "INFJ", "INTJ",
-    "ISTP", "ISFP", "INFP", "INTP",
-    "ESTP", "ESFP", "ENFP", "ENTP",
-    "ESTJ", "ESFJ", "ENFJ", "ENTJ"
-]
-
-st.subheader("MBTI 유형을 선택하세요:")
-cols = st.columns(4)
-selected_type = None
-
-for i, mbti in enumerate(mbti_types):
-    if cols[i % 4].button(mbti):
-        selected_type = mbti
-
+# MBTI 정보 (전체 16유형)
 mbti_info = {
     "ISTJ": {
         "특성": "책임감 있고 실용적이며, 계획을 잘 세움.\n전통과 규칙을 중요시함.\n감정보다 사실에 근거한 판단을 선호함.\n신뢰성과 성실함으로 주변의 신뢰를 얻음.\n혼자서 조용히 일하는 것을 선호함.",
@@ -100,16 +89,44 @@ mbti_info = {
     }
 }
 
+# 기질 그룹 색상 설정
+mbti_groups = {
+    "분석형 (Analysts)": {
+        "types": ["INTJ", "INTP", "ENTJ", "ENTP"],
+        "color": "#AECBFA"
+    },
+    "외교형 (Diplomats)": {
+        "types": ["INFJ", "INFP", "ENFJ", "ENFP"],
+        "color": "#C6F6D5"
+    },
+    "관리자형 (Sentinels)": {
+        "types": ["ISTJ", "ISFJ", "ESTJ", "ESFJ"],
+        "color": "#FFF3BF"
+    },
+    "탐험가형 (Explorers)": {
+        "types": ["ISTP", "ISFP", "ESTP", "ESFP"],
+        "color": "#E9D8FD"
+    }
+}
 
+# 버튼 출력
+selected_type = None
+for group_name, group_data in mbti_groups.items():
+    st.markdown(f"### 🎨 {group_name}")
+    cols = st.columns(4)
+    for i, mbti in enumerate(group_data["types"]):
+        with cols[i % 4]:
+            if st.button(mbti, use_container_width=True):
+                selected_type = mbti
+
+# 결과 출력
 if selected_type:
-    st.markdown(f"## ✨ {selected_type} 유형")
+    st.markdown(f"## ✨ {selected_type} 유형 정보")
     info = mbti_info.get(selected_type)
     if info:
         st.markdown("**🧠 주요 특성:**")
-        st.markdown(info["특성"])
+        st.markdown(f"{info['특성']}")
         st.markdown("**💬 상담 꿀팁:**")
         st.success(info["상담 꿀팁"])
         st.markdown("**🛠️ 추천 직업:**")
         st.info(info["추천 직업"])
-    else:
-        st.warning("해당 유형에 대한 정보가 준비되지 않았습니다.")
