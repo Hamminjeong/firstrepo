@@ -1,2 +1,4 @@
 koreanize-matplotlib
 plotly
+streamlit
+pandas
